@@ -7,10 +7,12 @@ export interface UseRect {
 export interface Rect {
   bottom: number;
   height: number;
+  scrollHeight: number;
   left: number;
   right: number;
   top: number;
   width: number;
+  scrollWidth: number;
   x: number;
   y: number;
 }
@@ -69,7 +71,12 @@ export function useRect(
         return;
       }
 
-      const nextRect = elementRef.current.getBoundingClientRect();
+      const { scrollHeight, scrollWidth } = elementRef.current;
+      const nextRect = {
+        ...elementRef.current.getBoundingClientRect(),
+        scrollHeight,
+        scrollWidth
+      };
 
       if (force || shouldDispatchRectChange(rectRef.current, nextRect)) {
         rectRef.current = nextRect;
@@ -78,10 +85,12 @@ export function useRect(
         dispatchChangeRef.current({
           bottom,
           height,
+          scrollHeight,
           left,
           right,
           top,
           width,
+          scrollWidth,
           x,
           y
         });
@@ -111,10 +120,12 @@ export function useRect(
 const RECT_KEYS = [
   'bottom',
   'height',
+  'scrollHeight',
   'left',
   'right',
   'top',
   'width',
+  'scrollWidth',
   'x',
   'y'
 ] as const;

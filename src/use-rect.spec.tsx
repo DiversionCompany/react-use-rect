@@ -7,13 +7,15 @@ function mockRect(top: number, left: number, width: number, height: number) {
   const windowHeight = 1080;
   const right = windowWidth - left - width;
   const bottom = windowHeight - top - height;
-  const fakeRect = {
+  const fakeRect: Rect = {
     bottom,
     height,
+    scrollHeight: 0,
     left,
     right,
     top,
     width,
+    scrollWidth: 0,
     x: left,
     y: top
   };
